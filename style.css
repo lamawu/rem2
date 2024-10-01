@@ -1,6 +1,5 @@
 header, footer{
   display: none !important;
+  width:0 !important;
 }
-section{
-  width:100%;
-}
+
