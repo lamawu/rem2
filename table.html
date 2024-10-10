@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV File Loader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSV File Loader</h1>
+    <table id="csvTable"></table>
+
+    <script>
+        // Fetch and display the CSV file
+        fetch('data.csv')
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split('\n');
+                const table = document.getElementById('csvTable');
+                table.innerHTML = '';
+
+                rows.forEach((row, index) => {
+                    const tr = document.createElement('tr');
+                    const cells = row.split(',');
+
+                    cells.forEach(cell => {
+                        const td = document.createElement(index === 0 ? 'th' : 'td');
+                        td.textContent = cell.trim();
+                        tr.appendChild(td);
+                    });
+
+                    table.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading the CSV file:', error);
+                document.getElementById('csvTable').innerHTML = '<tr><td colspan="2">Error loading CSV file.</td></tr>';
+            });
+    </script>
+
+</body>
+</html>
